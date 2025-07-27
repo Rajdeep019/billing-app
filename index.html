@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Simple Billing App with Currency Toggle</title>
+  <title>Billing App with Currency Toggle</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f7f9fc;
+      background: #f2f6fa;
       padding: 30px;
       display: flex;
       justify-content: center;
@@ -16,7 +16,7 @@
       background: white;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
       max-width: 700px;
       width: 100%;
     }
@@ -70,7 +70,7 @@
       font-size: 1rem;
       border: none;
       border-radius: 6px;
-      background: #4f8cff;
+      background: #007bff;
       color: white;
       cursor: pointer;
       margin: 0 5px;
@@ -94,7 +94,7 @@
 <body>
 
   <div class="container">
-    <h2>Simple Billing App</h2>
+    <h2>Quotation </h2>
 
     <div class="controls">
       <label for="usdRate">USD Rate (₹ → $):</label>
@@ -108,7 +108,7 @@
     </div>
 
     <div id="fields-container">
-      <!-- Item fields will appear here -->
+      <!-- Field rows -->
     </div>
 
     <div class="button-row">
@@ -146,30 +146,31 @@
         const label = inputs[0].value || `Item ${i + 1}`;
         const val1 = parseFloat(inputs[1].value) || 0;
         const val2 = parseFloat(inputs[2].value) || 0;
-        const amountINR = val1 * val2;
-        const amountUSD = amountINR / rate;
+        const subtotalINR = val1 * val2;
+        const subtotalUSD = subtotalINR / rate;
 
-        totalINR += amountINR;
+        totalINR += subtotalINR;
 
         if (currencyMode === "INR") {
-          output += `<li>${label}: ₹${amountINR.toFixed(2)}</li>`;
-        } else if (currencyMode === "USD") {
-          output += `<li>${label}: $${amountUSD.toFixed(2)}</li>`;
+          output += `<li>${label}: ${val1} × ${val2} = ₹${subtotalINR.toFixed(2)}</li>`;
+        } else {
+          output += `<li>${label}: ${val1} × ${val2} = $${subtotalUSD.toFixed(2)}</li>`;
         }
       }
 
       const totalUSD = totalINR / rate;
 
+      output += "</ul><hr/>";
       if (currencyMode === "INR") {
-        output += `</ul><strong>Total INR: ₹${totalINR.toFixed(2)}</strong>`;
+        output += `<strong>Total: ₹${totalINR.toFixed(2)}</strong>`;
       } else {
-        output += `</ul><strong>Total USD: $${totalUSD.toFixed(2)}</strong>`;
+        output += `<strong>Total: $${totalUSD.toFixed(2)}</strong>`;
       }
 
       document.getElementById('output').innerHTML = output;
     }
 
-    // Initial field
+    // Initialize with one field
     addField();
   </script>
 
