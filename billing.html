@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple Billing Page</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .field-group { margin-bottom: 10px; }
+    input { margin: 5px; padding: 4px; }
+    #output { margin-top: 20px; font-weight: bold; }
+    button { margin-top: 10px; padding: 6px 12px; }
+  </style>
+</head>
+<body>
+
+  <h2>Billing Form</h2>
+  <div id="fields-container">
+    <!-- Dynamic fields will appear here -->
+  </div>
+
+  <button onclick="addField()">Add Item</button>
+  <button onclick="calculateTotal()">Calculate Total</button>
+
+  <div id="output"></div>
+
+  <script>
+    function addField() {
+      const container = document.getElementById('fields-container');
+      const div = document.createElement('div');
+      div.className = 'field-group';
+      div.innerHTML = `
+        <input type="text" placeholder="Item Name (Label)" />
+        <input type="number" placeholder="Value 1 (e.g. Quantity)" />
+        <input type="number" placeholder="Value 2 (e.g. Price)" />
+      `;
+      container.appendChild(div);
+    }
+
+    function calculateTotal() {
+      const container = document.getElementById('fields-container');
+      const groups = container.getElementsByClassName('field-group');
+      let total = 0;
+      let billOutput = "<h3>Bill Summary:</h3><ul>";
+
+      for (let i = 0; i < groups.length; i++) {
+        const inputs = groups[i].getElementsByTagName('input');
+        const label = inputs[0].value;
+        const value1 = parseFloat(inputs[1].value) || 0;
+        const value2 = parseFloat(inputs[2].value) || 0;
+        const subtotal = value1 * value2;
+        total += subtotal;
+
+        billOutput += `<li>${label || "Item " + (i+1)}: ${value1} x ${value2} = ₹${subtotal.toFixed(2)}</li>`;
+      }
+
+      billOutput += `</ul><strong>Total: ₹${total.toFixed(2)}</strong>`;
+      document.getElementById('output').innerHTML = billOutput;
+    }
+  </script>
+
+</body>
+</html>
