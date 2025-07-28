@@ -2,62 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Billing App with Currency Toggle</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: #f2f6fa;
-      padding: 30px;
+      margin: 0;
+      padding: 20px;
       display: flex;
       justify-content: center;
     }
 
     .container {
       background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      max-width: 700px;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      max-width: 750px;
       width: 100%;
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      color: #333;
     }
 
     .controls {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 25px;
     }
 
     .controls label {
       font-weight: bold;
+      margin-right: 5px;
     }
 
     .controls input,
     .controls select {
-      padding: 8px 12px;
+      padding: 10px;
       font-size: 1rem;
-      border-radius: 6px;
+      border-radius: 8px;
       border: 1.5px solid #ccc;
+      flex: 1;
+      min-width: 120px;
     }
 
     .field-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 10px;
     }
 
     .field-group input {
-      padding: 10px;
+      flex: 1;
+      padding: 12px;
       font-size: 1rem;
-      border-radius: 6px;
+      border-radius: 8px;
       border: 1.5px solid #ccc;
+      min-width: 100px;
     }
 
     .button-row {
@@ -66,14 +79,19 @@
     }
 
     .button-row button {
-      padding: 10px 20px;
+      padding: 12px 22px;
       font-size: 1rem;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       background: #007bff;
       color: white;
       cursor: pointer;
-      margin: 0 5px;
+      margin: 0 8px;
+      transition: background 0.3s ease;
+    }
+
+    .button-row button:hover {
+      background: #0056b3;
     }
 
     #output {
@@ -84,10 +102,41 @@
 
     #output ul {
       padding-left: 20px;
+      list-style-type: disc;
     }
 
     #output li {
       margin-bottom: 10px;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    #output strong {
+      font-size: 1.2rem;
+      color: #222;
+    }
+
+    @media (max-width: 600px) {
+      .controls,
+      .field-group {
+        flex-direction: column;
+      }
+
+      .controls input,
+      .controls select,
+      .field-group input {
+        width: 100%;
+      }
+
+      .button-row button {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -108,7 +157,7 @@
     </div>
 
     <div id="fields-container">
-      <!-- Field rows -->
+      <!-- Field rows will be added here -->
     </div>
 
     <div class="button-row">
